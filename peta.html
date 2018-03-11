@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>membuat peta</title>
+	<meta name="viewport" content="initial-scale=1.0">
+	<style>
+		#map{
+			height: 100%;
+		}
+		html,body{
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+	<div id="map"></div>
+	<script>
+		var map;
+		function initMap(){
+			map = new google.maps.Map(document.getElementById('map'),{
+				center: {lat: 0, lng: 0},
+				zoom: 5
+			});
+		}
+	</script>
+	<script  async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTW5A2QCj0JTJmGqmvA_FdeZzavfT7jJo&callback=initMap"></script>
+
+
+
+</body>
+</html>
