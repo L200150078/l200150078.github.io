@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Circles</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body> 
+    <div id="map"></div>
+    <script>
+var citymap = {
+        jakarta: {
+          center: {lat: -6.234266, lng: 106.853890},
+          population: 13497173
+        },
+        Bandung: {
+          center: {lat: -6.992882, lng: 107.610539},
+          population: 9908354
+        },
+        Bali: {
+          center: {lat: -8.277921, lng: 114.860579},
+          population: 3848583
+        },
+        Yogyakarta: {
+          center: {lat: -7.8631418, lng: 110.2603932},
+          population: 9587921
+        },
+        Surabaya:{
+          center:{lat: -7.292174, lng: 112.758904},
+          population: 3888423
+        }
+      };
+      function initMap() {
+        // Create the map.
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 7,
+          center: {lat: -7.3716471, lng: 109.9256854},
+          mapTypeId: 'terrain'
+        });
+        // Construct the circle for each value in citymap.
+        // Note: We scale the area of the circle based on the population.
+        for (var city in citymap) {
+          // Add the circle for this city to the map.
+          var cityCircle = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+            map: map,
+            center: citymap[city].center,
+            radius: Math.sqrt(citymap[city].population) * 5
+          });
+        }
+      }
+    </script>
+    <script src="markerclusterer.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0hH1skGrTV1xe3EDhqOnZU-bJ-6xjqf4&callback=initMap">
+    </script>
+	  </body>
+</html>

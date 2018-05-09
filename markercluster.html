@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>marker clusterer </title>
+	<style>
+		#map{
+			height: 100%;
+		}
+		html,body{
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+	<div id="map"></div>
+	<script>
+		var map;
+		function initMap(){
+			var map = new google.maps.Map(document.getElementById('map'),{
+				zoom:13,
+				center: {lat:-7.572860, lng:110.795803}
+			});
+			var labels ='abcdefghijklmnopqrstuvwxyz';
+			var marker = locations.map(function(location,i){
+				return new google.maps.Marker({
+					position: location,
+					label: labels[i % labels.lenght]
+				});
+			});
+				var markerCluster = new MarkerClusterer(map, marker,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
+		}
+		var locations = [
+		{lat:-7.582226, lng:110.826250},
+		{lat:-7.578343, lng:110.827613},
+		{lat:-7.574967, lng:110.828669},
+		{lat:-7.572131, lng:110.831325},
+		{lat:-7.555999, lng:110.806065},
+		{lat:-7.552231, lng:110.808558},
+		{lat:-7.567920, lng:110.813586},
+		{lat:-7.574254, lng:110.826709},
+		{lat:-7.598847, lng:110.816645},
+		{lat:-7.557916, lng:110.771825},
+		]
+	</script>
+	<script src="markerclusterer.js"></script>
+	<script async defer src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCTW5A2QCj0JTJmGqmvA_FdeZzavfT7jJo&callback=initMap"></script>
+
+</body>
+</html>
