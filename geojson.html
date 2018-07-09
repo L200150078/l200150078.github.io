@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>GeoJSON NAD</title>
+    
+  </head>
+  <body>
+    <div id="perspective" class="perspective effect-airbnb">
+      <div class="container">
+        <div class="wrapper"><!-- wrapper needed for scroll -->
+          <div class="main clearfix">
+            <div class="column">
+              <div id="map" style="width: 100%; height:100%; position: absolute;"></div>              
+            </div>
+            <script>
+                    var map;
+                    function initMap() {
+                      var aceh = {lat:  3.895135, lng: 96.749397};
+                      map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 8,
+                        center: aceh,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                      });
+                      if ((screen.width<=1366) && (screen.height<=768)) {
+                        map.setZoom(7);
+                      }
+                      map.data.loadGeoJson('aceh.geojson');
+                      map.data.setStyle(function(feature) {
+                          var color = 'gray';
+                          if (feature.getProperty('isColorful')) {
+                            color = feature.getProperty('color');
+                          }
+                          return /** @type {google.maps.Data.StyleOptions} */({
+                            fillColor: 'black',
+                            strokeColor: 'red',
+                            strokeWeight: 2,
+                          });
+                      });
+                        
+                      map.data.addListener('click', function(event) {
+                        event.feature.setProperty('isColorful', true);  
+                      });
+                        
+                      map.data.addListener('mouseover', function(event) {
+                        map.data.revertStyle();
+                        map.data.overrideStyle(event.feature, {fillColor: 'blue', strokeColor: 'black', strokeWeight: 3});
+                      });
+                        
+                      map.data.addListener('mouseout', function(event) {
+                        map.data.revertStyle();
+                      });
+                    }
+                    
+                    function ubahtipe(tipenya){
+                      if (tipenya == "ROADMAP") {
+                        map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+                      }else if (tipenya == "TERRAIN") {
+                        map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
+                      }else if (tipenya == "HYBRID") {
+                        map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+                      }else if (tipenya == "SATELLITE") {
+                        map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+                      }
+                    }
+            </script>
+            <script async defer
+                  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTW5A2QCj0JTJmGqmvA_FdeZzavfT7jJo&callback=initMap">
+            </script>
+          </div><!-- /main -->
+        </div><!-- wrapper -->
+      </div><!-- /container -->
+    </div><!-- /perspective -->
+  </body>
+</html>
