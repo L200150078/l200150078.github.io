@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+  <title>Panorama</title>
+    <style>
+         #map {
+          height: 550px;
+          width: 100%;
+         }
+      </style>
+</head>
+
+<body>
+ 
+    <!-- /Background Image -->
+
+    <!-- Nav -->
+    <nav id="nav" class="navbar nav-transparent">
+      <div class="container">
+
+      
+    <!-- /Nav -->
+
+    <!-- home wrapper -->
+    <div class="home-wrapper">
+      <div class="container">
+        <div class="row">
+
+                <center>
+                  <div id="map"></div>
+                </center>
+                <script>
+                  function initPano() {
+                      // Set up Street View and initially set it visible. Register the
+                      // custom panorama provider function. Set the StreetView to display
+                      // the custom panorama 'reception' which we check for below.
+                      var panorama = new google.maps.StreetViewPanorama(
+                        document.getElementById('map'), {
+                          pano: 'Pulau Padar Nusa Tenggara',
+                          visible: true,
+                          panoProvider: getCustomPanorama
+                      });
+                    }
+                    // Return a pano image given the panoID.
+                    function getCustomPanoramaTileUrl(pano, zoom, tileX, tileY) {
+                      // Note: robust custom panorama methods would require tiled pano data.
+                      // Here we're just using a single tile, set to the tile size and equal
+                      // to the pano "world" size.
+                      //return 'https://developers.google.com/maps/documentation/javascript/examples/full/images/panoReception1024-0.jpg';
+                       return 'PANO_20180617_064211.jpg';
+                    }
+                    // Construct the appropriate StreetViewPanoramaData given
+                    // the passed pano IDs.
+                    function getCustomPanorama(pano, zoom, tileX, tileY) {
+                      if (pano === 'Pulau Padar Nusa Tenggara') {
+                        return {
+                          location: {
+                            pano: 'Pulau Padar Nusa Tenggara',
+                            description: 'Pulau Padar Nusa Tenggara'
+                          },
+                          links: [],
+                          // The text for the copyright control.
+                          copyright: 'Imagery (c) 2010 Google',
+                          // The definition of the tiles for this panorama.
+                          tiles: {
+                            tileSize: new google.maps.Size(1024, 512),
+                            worldSize: new google.maps.Size(1024, 512),
+                            // The heading in degrees at the origin of the panorama
+                            // tile set.
+                            centerHeading: 105,
+                            getTileUrl: getCustomPanoramaTileUrl
+                          }
+                        };
+                      }
+                    }
+                  </script>
+                  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTW5A2QCj0JTJmGqmvA_FdeZzavfT7jJo&libraries=visualization&callback=initPano">
+            </script>
+              </div>
+            </section>
+          </section>
+      </div>
+
+    <!-- Scripts -->
+      <div id="back-to-top"></div>
+  <!-- /Back to top -->
+
+  <!-- Preloader -->
+
+  </body>
+
+</html>
